@@ -1,0 +1,22 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "test app",
+  "main": "tailwind.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/urisaul/main_app.git"
+  },
+  "author": "uri saul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/urisaul/main_app/issues"
+  },
+  "homepage": "https://github.com/urisaul/main_app#readme"
+}
