@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Libraries\Utils;
+use App\Mail\GeneralEmail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -71,6 +73,8 @@ class UserController extends Controller
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
+
+        // Mail::to("urisaul36@gmail.com")->send($user['email']);
      
         return $user->createToken($request->device_name)->plainTextToken;
 
