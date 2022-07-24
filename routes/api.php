@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScrapeController;
+use App\Mail\GeneralEmail;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,8 @@ Route::middleware(['auth:sanctum'])->group(function ()
     // test routes
     Route::get('/testing', function (Request $request)
     {
+        Mail::to($request->user()['email'])->send(new GeneralEmail());
+
         return [
             "message" => "You have reached your destination!!",
             "user"    => $request->user(),

@@ -20,9 +20,10 @@ class GeneralEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data = [])
     {
-        //
+        $this->email_subject = $data['subject']?? "" ;
+        $this->email_content = $data['body']?? "" ;
     }
 
     /**
@@ -33,7 +34,7 @@ class GeneralEmail extends Mailable
     public function build()
     {
         return $this->from(env("MAIL_USERNAME"), env("MAIL_FROM_NAME"))
-                ->subject(self::$email_subject)
-                ->view('emails.blank' , ['data' => self::$email_content]);
+                ->subject($this->email_subject)
+                ->view('emails.blank' , ['data' => $this->email_content]);
     }
 }
