@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -34,6 +35,11 @@ Route::middleware(['auth:sanctum'])->group(function ()
     
     // scrape section
     Route::get('/scrape_url', [ScrapeController::class, "scrape_url"]);
+
+
+    // Recipe routes
+    Route::get('/recipes/all', [RecipeController::class, "GetAll"]);
+    Route::post('/recipes/add', [RecipeController::class, "Add"]);
 
 
     // test routes
