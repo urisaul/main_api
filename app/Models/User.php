@@ -49,4 +49,13 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
+    function recipes () {
+        return $this->hasMany(Recipe::class, 'auth_id', 'id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'auth_id', 'id');
+    }
 }
