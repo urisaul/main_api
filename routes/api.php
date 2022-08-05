@@ -41,6 +41,7 @@ Route::middleware(['auth:sanctum'])->group(function ()
 
     // Recipe routes
     Route::get('/recipes/all', [RecipeController::class, "GetAll"]);
+    Route::get('/recipes/allwcomments', [RecipeController::class, "GetAllWithComments"]);
     Route::post('/recipes/add', [RecipeController::class, "Add"]);
     Route::patch('/recipes/update', [RecipeController::class, "Update"]);
     Route::delete('/recipes/delete', [RecipeController::class, "Delete"]);

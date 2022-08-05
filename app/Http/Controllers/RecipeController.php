@@ -9,7 +9,22 @@ class RecipeController extends Controller
 {
     public function GetAll(Request $request = null)
     {
+        $data = Recipe::where('status', "=", "published")
+                ->orderBy('title')
+                ->take(10)
+                ->get();
+
+        return $data;
+    }
+
+    /**
+     * 
+     * get all recipes with comments
+     *  */  
+    public function GetAllWithComments(Request $request = null)
+    {
         $data = Recipe::with(['comments'])
+                ->where('status', "=", "published")
                 ->orderBy('title')
                 ->take(10)
                 ->get();
