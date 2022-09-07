@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,13 @@ Route::middleware(['auth:sanctum'])->group(function ()
     Route::post('/recipes/add', [RecipeController::class, "Add"]);
     Route::patch('/recipes/update', [RecipeController::class, "Update"]);
     Route::delete('/recipes/delete', [RecipeController::class, "Delete"]);
+    
+    // Comment routes
+    Route::get('/comments/all', [CommentController::class, "GetAll"]);
+    Route::get('/comments/for_recipe/{recipe_id}', [CommentController::class, "get_for_recipe"]);
+    Route::post('/comments/add', [CommentController::class, "Add"]);
+    Route::patch('/comments/update', [CommentController::class, "Update"]);
+    Route::delete('/comments/delete', [CommentController::class, "Delete"]);
 
 
     // test routes

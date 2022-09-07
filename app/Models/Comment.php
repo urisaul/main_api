@@ -12,7 +12,7 @@ class Comment extends Model
     const CREATED_AT = 'date_created';
     const UPDATED_AT = 'date_updated';
 
-    protected $fillable = ['auth_id', 'recipe_id', 'rating', 'title', 'body'];
+    protected $fillable = ['auth_id', 'recipe_id', 'rating', 'title', 'body', 'status'];
 
     public function recipe ()
     {
