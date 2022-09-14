@@ -36,9 +36,12 @@ class CommentController extends Controller
     {
         $new_comment = $request->all();
         $new_comment['auth_id'] = $request->user()->id;
+        $new_comment['rating'] = $new_comment['rating'] > 5 ? 5 : ($new_comment['rating'] < 1? 1 : intval($new_comment['rating']));
         $comment = Comment::create($new_comment);
 
         $comment->Update(["status" => "published"]);
+
+        RecipeController::eval_recipe_rating($new_comment['recipe_id']??0);
 
         return [
             "success" => true,
