@@ -60,6 +60,8 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
+
+        return "hey";
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
