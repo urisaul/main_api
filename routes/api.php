@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ParshaController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,8 @@ use Illuminate\Support\Facades\Password;
 
 Route::post('/login', [UserController::class, "login"]);
 
+Route::post("/parsha/email_pref", [ParshaController::class, "email_pref"]);
+Route::post("/parsha/test", [ParshaController::class, "send_email"]);
 
 
 Route::middleware(['auth:sanctum'])->group(function () {

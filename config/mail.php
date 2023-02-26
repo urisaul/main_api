@@ -45,6 +45,17 @@ return [
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
 
+        'smtp_2' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_PARSHA_HOST'),
+            'port' => env('MAIL_PARSHA_PORT'),
+            'encryption' => env('MAIL_PARSHA_ENCRYPTION'),
+            'username' => env('MAIL_PARSHA_USERNAME'),
+            'password' => env('MAIL_PARSHA_PASSWORD'),
+            'timeout' => null,
+            'local_domain' => env('MAIL_EHLO_DOMAIN'),
+        ],
+
         'ses' => [
             'transport' => 'ses',
         ],

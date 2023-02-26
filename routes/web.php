@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Libraries\Utils;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
+});
+
+Route::get('/parsha/email_pref',  function (Request $req) {
+    return view('pages.email_pref', Utils::obj_to_arr($req));
 });
 
 require __DIR__.'/auth.php';

@@ -11,7 +11,7 @@ class Utils {
      */
     public static function obj_to_arr($obj)
     {
-        return json_decode(json_encode($obj));
+        return json_decode(json_encode($obj), true);
     }
 
 
