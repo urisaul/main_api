@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    Subscibe to Parsha weekly qustion sheet:
+    <span id="title-toggle">Subscribe</span> to Parsha weekly qustion sheet:
     <br>
     <form action="" id="main-form">
         <label for="email-inp">Email:</label>
@@ -25,13 +25,14 @@
         });
         let action = params.action;
 
-        
+        let title_toggle = document.querySelector("span#title-toggle");
         let main_form = document.querySelector("form#main-form");
         let email_inp = document.querySelector("input#email-inp");
         let sub_btn = document.querySelector("button#sub-btn");
         let unsub_btn = document.querySelector("button#unsub-btn");
         
         if (action === "unsub") {
+            title_toggle.innerHTML = "Unsubscibe"
             email_inp.value = params.user_e;
             sub_btn.style.display = "none";
             unsub_btn.style.display = "inline";
@@ -60,12 +61,14 @@
                 .then(res => {
                     document.querySelector("div#messages").innerHTML = res.message || "";
 
-                    // toggle button display (for both buttons)
-                    sub_btn.style.display   = sub_btn.style.display   === "none" ? "inline" : "none";
-                    unsub_btn.style.display = unsub_btn.style.display === "none" ? "inline" : "none";
-
                     // toggle action
                     action = action === "sub" ? "unsub" : "sub";
+
+                    // toggle elements
+                    sub_btn.style.display   = action === "sub" ? "inline" : "none";
+                    unsub_btn.style.display = action === "sub" ? "none" : "inline";
+                    title_toggle.innerHTML  = action === "sub" ? "Subscribe" : "Unsubscribe";
+
                 })
                 .catch(err => {
                     document.querySelector("div#messages").innerHTML = err.message || "an error has occurred please contact us at support@urisaul.com";
