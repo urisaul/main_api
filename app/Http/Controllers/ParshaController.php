@@ -17,10 +17,14 @@ class ParshaController extends Controller
         ]);
 
         $action = $request['action'];
-        $user = ParshaUser::where("email", $request['user_e'])->firstOrFail();
+        $user = ParshaUser::firstOrCreate(
+            ['email' => $request['user_e']],
+            ['status' => ($request['action'] === "sub" ? "sub" : "unsub")]
+        );
 
-        $user->status = $request['action'] === "sub" ? "sub" : "unsub";
-        $success = $user->save();
+        // $user->status = $request['action'] === "sub" ? "sub" : "unsub";
+        // $success = $user->save();
+        $success = (bool) $user;
 
         $full_action = $user->status === "sub" ? "subscribed to" : "unsubscribed from";
 
@@ -32,10 +36,12 @@ class ParshaController extends Controller
 
     public function send_email (Request $request)
     {
-        $parsha = "תצוה";
+        $parsha = $request->input("parsha", "כי תשא");
         $users = ParshaUser::where("status", "sub")->get();
         foreach ($users as $user) {
-            Mail::mailer('smtp_2')->to("urisaul36@gmail.com")->bcc($user)->send(new ParshaQuset($user, $parsha));
+            Mail::mailer('smtp_2')->to("urisaul36@gmail.com")
+            ->bcc($user)
+            ->send(new ParshaQuset($user, $parsha));
         }
         
         return [

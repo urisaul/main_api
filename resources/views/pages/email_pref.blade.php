@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <span id="title-toggle">Subscribe</span> to Parsha weekly qustion sheet:
+    <span id="title-toggle">Subscribe to</span> Parsha weekly qustion sheet:
     <br>
     <form action="" id="main-form">
         <label for="email-inp">Email:</label>
@@ -32,7 +32,7 @@
         let unsub_btn = document.querySelector("button#unsub-btn");
         
         if (action === "unsub") {
-            title_toggle.innerHTML = "Unsubscibe"
+            title_toggle.innerHTML = "Unsubscibe from"
             email_inp.value = params.user_e;
             sub_btn.style.display = "none";
             unsub_btn.style.display = "inline";
@@ -67,7 +67,7 @@
                     // toggle elements
                     sub_btn.style.display   = action === "sub" ? "inline" : "none";
                     unsub_btn.style.display = action === "sub" ? "none" : "inline";
-                    title_toggle.innerHTML  = action === "sub" ? "Subscribe" : "Unsubscribe";
+                    title_toggle.innerHTML  = action === "sub" ? "Subscribe to" : "Unsubscribe from";
 
                 })
                 .catch(err => {
