@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
-    public function GetAll(Request $request = null)
+    public function GetAll(Request $request)
     {
         $data = Recipe::where('status', "=", "published")
                 ->orderBy('title')
-                ->take(10)
-                ->get();
+                // ->take(10)
+                ->paginate($request->input("per-page", 25));
 
         return $data;
     }
@@ -31,6 +31,16 @@ class RecipeController extends Controller
                 ->get();
 
         return $data;
+    }
+
+    public function GetSingle (Request $request, $id)
+    {
+        $recipe = Recipe::with(['comments'])
+            ->where('status', "=", "published")
+            ->where('id', "=", $id)
+            ->first();
+
+        return $recipe;
     }
 
     public function Add (Request $request)
