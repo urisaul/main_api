@@ -17,15 +17,17 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required'
-        ], [
-            'name' => "data not valid!!",
-            'email' => "data not valid!!",
-            'password' => "data not valid!!",
+            'email' => 'required|email|unique:App\Models\User,email',
+            'password' => [
+                'required',
+                'min:6',
+                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
+                'confirmed'
+            ]
         ]);
 
         $user = User::create($request->all());
+        $user->sendEmailVerificationNotification();
 
         return $user;
     }
@@ -65,17 +67,17 @@ class UserController extends Controller
             'password' => 'required',
             'device_name' => 'required',
         ]);
-     
+
         $user = User::where('email', $request->email)->first();
-     
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
 
         // Mail::to("urisaul36@gmail.com")->send($user['email']);
-     
+
         return $user->createToken($request->device_name)->plainTextToken;
 
         // $user = User::find(8);
@@ -83,4 +85,3 @@ class UserController extends Controller
         // return true;
     }
 }
-

@@ -26,14 +26,15 @@ use Illuminate\Support\Facades\Password;
 
 
 Route::post('/login', [UserController::class, "login"]);
+Route::post('/user/create', [UserController::class, "create"]);
 
 Route::post("/parsha/email_pref", [ParshaController::class, "email_pref"]);
 Route::post("/parsha/test", [ParshaController::class, "send_email"]);
 
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // user routes
-    Route::post('/create-user', [UserController::class, "create"]);
+    // Route::post('/create-user', [UserController::class, "create"]);
     Route::get('/show-user/{id}', [UserController::class, "show"]);
     Route::patch('/update-user/{id}', [UserController::class, "update"]);
     Route::delete('/delete-user/{id}', [UserController::class, "delete"]);
@@ -64,7 +65,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             "subject" => "this is a test email", 
             "body" => "this is a test body of the email!!"
         ];
-        Mail::to($request->user()['email'])->send(new GeneralEmail($data));
+        // Mail::to($request->user()['email'])->send(new GeneralEmail($data));
 
         return [
             "message" => "You have reached your destination!!",
