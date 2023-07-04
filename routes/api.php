@@ -29,7 +29,7 @@ Route::post('/login', [UserController::class, "login"]);
 Route::post('/user/create', [UserController::class, "create"]);
 
 Route::post("/parsha/email_pref", [ParshaController::class, "email_pref"]);
-Route::post("/parsha/test", [ParshaController::class, "send_email"]);
+Route::post("/parsha/send_email", [ParshaController::class, "send_email"]);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
