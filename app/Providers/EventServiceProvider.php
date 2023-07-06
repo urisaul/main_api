@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\ParshaUser;
+use App\Models\Task;
+use App\Observers\ModelObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,7 +30,8 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        ParshaUser::observe(ModelObserver::class);
+        Task::observe(ModelObserver::class);
     }
 
     /**

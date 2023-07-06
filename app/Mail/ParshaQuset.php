@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\Models\ParshaUser;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -20,7 +19,7 @@ class ParshaQuset extends Mailable
      *
      * @return void
      */
-    public function __construct(ParshaUser $user, $parsha)
+    public function __construct($parsha, ParshaUser $user = null)
     {
         $this->parsha = $parsha;
         $this->user = $user;
@@ -48,6 +47,6 @@ class ParshaQuset extends Mailable
         return $this->from(env("MAIL_PARSHA_USERNAME"), env("MAIL_PARSHA_FROM_NAME"))
                 ->subject("שאלות בפרשת השבוע | פרשת {$this->parsha}")
                 ->attach($file)
-                ->view('emails.parsha' , ['user' => $this->user]);
+                ->view('emails.parsha');
     }
 }

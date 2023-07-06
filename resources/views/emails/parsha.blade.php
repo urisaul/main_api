@@ -8,7 +8,7 @@
         </p>
         <br><br>
         <p dir="rtl">
-            <a href="{{ url('') }}/parsha/email_pref?action=unsub&user_e={{ $user->email }}">להסרה</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="{{ url('') }}/parsha/email_pref?action=unsub&user_e=">להסרה</a>&nbsp;&nbsp;|&nbsp;&nbsp;
             <a href="{{ url('') }}/parsha/email_pref?action=sub">להצטרפות</a>
         </p>
         <p dir="rtl">

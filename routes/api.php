@@ -29,7 +29,8 @@ Route::post('/login', [UserController::class, "login"]);
 Route::post('/user/create', [UserController::class, "create"]);
 
 Route::post("/parsha/email_pref", [ParshaController::class, "email_pref"]);
-Route::post("/parsha/send_email", [ParshaController::class, "send_email"]);
+Route::post("/parsha/send_email/{parsha}/{template_id}", [ParshaController::class, "send_email"]);
+Route::post("/parsha/schedule_send", [ParshaController::class, "schedule_send_req"]);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

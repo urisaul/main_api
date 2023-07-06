@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\TaskController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,7 +18,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->command('sanctum:prune-expired --hours=24')->daily();
+        $schedule->call(function(){
+            return TaskController::run_tasks();
+        })->everyMinute();
+
+        $schedule->command('sanctum:prune-expired --hours=24')->daily()->withoutOverlapping(10);
     }
 
     /**
