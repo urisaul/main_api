@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ParshaQuset;
 use App\Models\ParshaUser;
 use App\Models\Task;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -39,7 +40,7 @@ class ParshaController extends Controller
     {
         $users = ParshaUser::where("status", "sub")->get();
 
-        Log::info("sending parsha email to users", ["users" => $users->pluck("emails")->toArray() ?? ""]);
+        Log::info("sending parsha email to users", ["users" => $users->pluck("email")->toArray() ?? ""]);
 
         $template = null;
         if (!$template_id || intval($template_id) === 1) {
@@ -61,21 +62,22 @@ class ParshaController extends Controller
         ];
     }
 
-    public static function schedule_send($parsha, $date = null, $template = null)
+    public static function schedule_send($parsha, $date = null, $template = 1)
     {
-        $task = Task::create([
+        // check that file exsits
+        ParshaController::get_file($parsha);
+        
+        return Task::create([
             "user_id" => Auth::user()->id ?? 0,
             "task_name" => "\\App\\Http\\Controllers\\ParshaController::send_email",
             "data" => [$parsha, $template],
             "available_from" => $date ?: date("Y-m-d H:i:s"),
         ]);
-        return true;
     }
 
     public function schedule_send_req(Request $request)
     {
         return ParshaController::schedule_send($request->input('parsha'), $request->input('date'), $request->input('template'));
-        return true;
     }
 
     public static function get_file($parsha)
@@ -83,7 +85,10 @@ class ParshaController extends Controller
         $files = scandir(storage_path('app/public/parsha_files/'));
         $filename = array_values(array_filter($files, function ($i) use ($parsha) {
             return str_contains($i, $parsha);
-        }))[0];
+        }))[0]??false;
+        if (!$filename) {
+            throw new Exception("Could not find parsha file", 1);  
+        }
         return storage_path('app/public/parsha_files/' . $filename);
     }
 }

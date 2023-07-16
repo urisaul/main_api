@@ -43,7 +43,7 @@ class Task extends Model
     // actions
 
     public function run () {
-        Log::debug("from 'run' in the task");
+
         if ($this->attempts >= 3) {
             $this->move_to_faild_tasks();
             return false;

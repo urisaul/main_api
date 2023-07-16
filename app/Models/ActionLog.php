@@ -30,6 +30,6 @@ class ActionLog extends Model
 
     protected $attributes = [
         "user_id" => 0,
-        "date_created" => date("Y-m-d H:i:s"),
+        // "date_created" => date("Y-m-d H:i:s"),
     ];
 }
