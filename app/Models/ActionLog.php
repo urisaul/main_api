@@ -21,6 +21,7 @@ class ActionLog extends Model
         "action_source",
         "action_type",
         "model",
+        "obj_id",
         "data",
     ];
 

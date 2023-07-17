@@ -23,6 +23,7 @@ class ModelObserver
             "action_source" => Request::getMethod(),
             "action_type" => "create",
             "model" => class_basename($model),
+            "obj_id" => $model->id,
             "data" => $changes,
         ]);
     }
@@ -42,6 +43,7 @@ class ModelObserver
             "action_source" => Request::getMethod(),
             "action_type" => "update",
             "model" => class_basename($model),
+            "obj_id" => $model->id,
             "data" => $changes,
         ]);
     }
@@ -61,6 +63,7 @@ class ModelObserver
             "action_source" => Request::getMethod(),
             "action_type" => "delete",
             "model" => class_basename($model),
+            "obj_id" => $model->id,
             "data" => $changes,
         ]);
     }
