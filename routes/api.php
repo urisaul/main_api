@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ParshaController;
+use App\Http\Controllers\ProsNConsController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -60,10 +61,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::delete('/comments/delete', [CommentController::class, "Delete"]);
 
 
+   
     // test routes
     Route::get('/testing', function (Request $request) {
         $data = [
-            "subject" => "this is a test email", 
+            "subject" => "this is a test email",
             "body" => "this is a test body of the email!!"
         ];
         // Mail::to($request->user()['email'])->send(new GeneralEmail($data));
@@ -74,6 +76,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ];
     });
 });
+
+
+ // Pros&Cons routes
+ Route::get('/pros_n_cons', [ProsNConsController::class, "GetAll"]);
+ Route::get('/pros_n_cons/{id}', [ProsNConsController::class, "GetOne"]);
+ Route::post('/pros_n_cons/add', [ProsNConsController::class, "Add"]);
+ Route::patch('/pros_n_cons/update', [ProsNConsController::class, "Update"]);
+ Route::delete('/pros_n_cons/delete', [ProsNConsController::class, "Delete"]);
+
 
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
