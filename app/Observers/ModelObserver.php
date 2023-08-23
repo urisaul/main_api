@@ -20,7 +20,7 @@ class ModelObserver
         unset($changes['updated_at']);
         ActionLog::create([
             "user_id" => Auth::user()->id ?? 0,
-            "action_source" => Request::getMethod(),
+            "action_source" => Request::getMethod(),  // needs updates
             "action_type" => "create",
             "model" => class_basename($model),
             "obj_id" => $model->id,
@@ -40,7 +40,7 @@ class ModelObserver
         unset($changes['updated_at']);
         ActionLog::create([
             "user_id" => Auth::user()->id ?? 0,
-            "action_source" => Request::getMethod(),
+            "action_source" => Request::getMethod(),  // needs updates
             "action_type" => "update",
             "model" => class_basename($model),
             "obj_id" => $model->id,
@@ -60,7 +60,7 @@ class ModelObserver
         unset($changes['updated_at']);
         ActionLog::create([
             "user_id" => Auth::user()->id ?? 0,
-            "action_source" => Request::getMethod(),
+            "action_source" => Request::getMethod(),  // needs updates
             "action_type" => "delete",
             "model" => class_basename($model),
             "obj_id" => $model->id,

@@ -62,6 +62,30 @@ class ParshaController extends Controller
         ];
     }
 
+    public static function send_email_req(Request $request)
+    {
+        $users = ParshaUser::where("status", "sub")->get();
+
+        Log::info("sending parsha email to users", ["users" => $users->pluck("email")->toArray() ?? ""]);
+
+        $parsha = $request->input("parsha", 1);
+        $template = intval($request->input("template", 1));
+        $data_for_template = $request->input("data_for_template", []);
+
+        $email = new ParshaQuset($parsha, $template, $data_for_template);
+
+        Mail::mailer('smtp_2')
+            // ->to("urisaul36@gmail.com")
+            ->bcc($users)
+            ->send($email);
+
+        return [
+            "success" => true,
+            "message" => "emails were sent successfuly!!",
+            "count"   => $users->count(),
+        ];
+    }
+
     public static function schedule_send($parsha, $date = null, $template = 1)
     {
         // check that file exsits
