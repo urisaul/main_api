@@ -13,7 +13,7 @@ use Illuminate\Validation\ValidationException;
 class UserController extends Controller
 {
 
-    public function create(Request $request)
+    public function create (Request $request, $model)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -32,13 +32,13 @@ class UserController extends Controller
         return $user;
     }
 
-    public function update(Request $request, $id)
+    public function update (Request $request, $id)
     {
         return User::where('id', $id)
             ->update($request->all());
     }
 
-    public function delete($id)
+    public function delete ($id, $model)
     {
         return $user = User::destroy($id);
     }
@@ -51,7 +51,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show ($id)
     {
         return  User::find($id);
         // return  User::findOrFail($id);
@@ -60,11 +60,11 @@ class UserController extends Controller
 
 
 
-    public function login(Request $request)
+    public function login (Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+            'email'       => 'required|email',
+            'password'    => 'required',
             'device_name' => 'required',
         ]);
 
@@ -76,9 +76,10 @@ class UserController extends Controller
             ]);
         }
 
-        // Mail::to("urisaul36@gmail.com")->send($user['email']);
-
-        return $user->createToken($request->device_name)->plainTextToken;
+        return [
+            "success" => true,
+            "token" => $user->createToken($request->device_name)->plainTextToken
+        ];
 
         // $user = User::find(8);
         // return $user->createToken($request->token_name?? "main_tok", ['server:update']);

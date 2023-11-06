@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScrapeController;
+use App\Http\Controllers\TravelController;
 use App\Mail\GeneralEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
@@ -62,6 +63,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::delete('/comments/delete', [CommentController::class, "Delete"]);
 
 
+    // Travel App
+    Route::get('trvl/{model}/get', [TravelController::class, "get"]);
+    Route::get('trvl/{model}/get/{id}', [TravelController::class, "get_one"]);
+    Route::post('trvl/{model}/add', [TravelController::class, "create"]);
+    Route::patch('trvl/{model}/update', [TravelController::class, "update"]);
+    Route::delete('trvl/{model}/delete', [TravelController::class, "delete"]);
+
+    
    
     // test routes
     Route::get('/testing', function (Request $request) {
