@@ -9,5 +9,14 @@ class TrvlDriver extends Model
 {
     use HasFactory;
 
-    
+    // setup
+    const UPDATED_AT = 'date_updated';
+    const CREATED_AT = 'date_created';
+
+
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'email',
+    ];
 }
