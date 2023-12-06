@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\GenManagerController;
 use App\Http\Controllers\ParshaController;
 use App\Http\Controllers\ProsNConsController;
 use App\Http\Controllers\RecipeController;
@@ -69,6 +70,21 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('trvl/{model}/add', [TravelController::class, "create"]);
     Route::patch('trvl/{model}/update', [TravelController::class, "update"]);
     Route::delete('trvl/{model}/delete', [TravelController::class, "delete"]);
+ 
+ 
+    //  add middlewares #1. Auth, #2. Validate Client_id
+
+    Route::get('a_v1/{client}/ad-{model}/get', [GenManagerController::class, "get_object"]);
+    Route::get('a_v1/{client}/ad-{model}/get/{id}', [GenManagerController::class, "get_one_object"]);
+    Route::post('a_v1/{client}/ad-{model}/add', [GenManagerController::class, "create_ad"]);
+    Route::patch('a_v1/{client}/ad-{model}/update', [GenManagerController::class, "update_object"]);
+    Route::delete('a_v1/{client}/ad-{model}/delete', [GenManagerController::class, "delete_object"]);
+
+    Route::get('a_v1/{client}/{object_id}/get', [GenManagerController::class, "get_"]);
+    Route::get('a_v1/{client}/{object_id}/get/{id}', [GenManagerController::class, "get_one_"]);
+    Route::post('a_v1/{client}/{object_id}/add', [GenManagerController::class, "create_"]);
+    Route::patch('a_v1/{client}/{object_id}/update', [GenManagerController::class, "update"]);
+    Route::delete('a_v1/{client}/{object_id}/delete', [GenManagerController::class, "delete"]);
 
     
    
