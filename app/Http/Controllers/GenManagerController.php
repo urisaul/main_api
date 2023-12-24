@@ -59,7 +59,7 @@ class GenManagerController extends Controller
         return parent::update($request, $client_id, "data");
     }
 
-    public function delete($request, $client_id, $object_id)
+    public function delete(Request $request, $client_id, $object_id)
     {
         $request->validate([
             "ids" => "required|array",
