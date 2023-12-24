@@ -65,11 +65,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 
     // Travel App
-    Route::get('trvl/{model}/get', [TravelController::class, "get"]);
-    Route::get('trvl/{model}/get/{id}', [TravelController::class, "get_one"]);
-    Route::post('trvl/{model}/add', [TravelController::class, "create"]);
-    Route::patch('trvl/{model}/update', [TravelController::class, "update"]);
-    Route::delete('trvl/{model}/delete', [TravelController::class, "delete"]);
+    // Route::get('trvl/{model}/get', [TravelController::class, "get"]);
+    // Route::get('trvl/{model}/get/{id}', [TravelController::class, "get_one"]);
+    // Route::post('trvl/{model}/add', [TravelController::class, "create"]);
+    // Route::patch('trvl/{model}/update', [TravelController::class, "update"]);
+    // Route::delete('trvl/{model}/delete', [TravelController::class, "delete"]);
  
  
     //  add middlewares #1. Auth, #2. Validate Client_id

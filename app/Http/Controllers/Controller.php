@@ -37,16 +37,34 @@ class Controller extends BaseController
         ];
     }
 
-    public function update(Request $request, $model)
+    public function update(Request $request, $client, $model)
     {
+        $request->validate([
+            "id" => "required",
+        ]);
 
-        return true;
+        $obj = $this->models[$model]::find($request->input('id', 0));
+        $obj->fill($request->all());
+        $success = $obj->save();
+
+        return [
+            "success" => $success,
+            "data" => $obj,
+        ];
     }
 
-    public function delete(Request $request, $model)
+    public function delete(Request $request, $client, $model)
     {
+        $request->validate([
+            "id" => "required",
+        ]);
 
-        return true;
+        $success = $this->models[$model]::whereIn("id", $request->input('ids', [0]))->delete();
+
+        return [
+            "success" => $success,
+            "message" => "Successfully deleted",
+        ];
     }
 
 }

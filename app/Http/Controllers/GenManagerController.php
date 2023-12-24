@@ -10,9 +10,10 @@ class GenManagerController extends Controller
 {
 
     public $models = [
-        "objects" => App\Models\QObject::class,
-        "properties" => App\Models\QProperty::class,
-        "property_option" => App\Models\QPropertyOption::class,
+        "data" => \App\Models\QData::class,
+        "objects" => \App\Models\QObject::class,
+        "properties" => \App\Models\QProperty::class,
+        "property_option" => \App\Models\QPropertyOption::class,
     ];
 
 
@@ -47,6 +48,24 @@ class GenManagerController extends Controller
         }
 
         return $data->paginate($request->input("per_page", 50));
+    }
+
+    public function update(Request $request, $client_id, $object_id)
+    {
+        $request->validate([
+            "id" => "required",
+        ]);
+        $obj_t = QObject::where("client_id", $client_id)->where("id", $object_id)->firstOrFail();
+        return parent::update($request, $client_id, "data");
+    }
+
+    public function delete($request, $client_id, $object_id)
+    {
+        $request->validate([
+            "ids" => "required|array",
+        ]);
+        $obj_t = QObject::where("client_id", $client_id)->where("id", $object_id)->firstOrFail();
+        return parent::delete($request, $client_id, "data");
     }
 
     public function get_one_(Request $request, $client_id, $object_id, $id)

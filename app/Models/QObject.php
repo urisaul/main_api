@@ -21,11 +21,21 @@ class QObject extends Model
         // "internal_name",
     ];
 
+    // relationships
+    public function Properties()
+    {
+        return $this->hasMany(QProperty::class, 'object_id', 'id');
+    }
+
+    public function DataObjects()
+    {
+        return $this->hasMany(QData::class, 'id', 'object_id');
+    }
+
     protected static function booted()
     {
         static::creating(function ($model) {
-            $model->internal_name = Str::snake(Str::replace(["'",'"',"-"], "_", $model->name));
+            $model->internal_name = Str::snake(Str::replace(["'", '"', "-", " "], "_", $model->name));
         });
     }
-
 }

@@ -22,11 +22,17 @@ class QProperty extends Model
         "type",
     ];
 
+    
+    // relationships
+    public function ObjectType()
+    {
+        return $this->belongsTo(QObject::class, 'object_id');
+    }
 
     protected static function booted()
     {
         static::creating(function ($model) {
-            $model->internal_name = Str::snake(Str::replace(["'",'"',"-"], "_", $model->name));
+            $model->internal_name = Str::snake(Str::replace(["'",'"',"-"," "], "_", $model->name));
         });
     }
 }

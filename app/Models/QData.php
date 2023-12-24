@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\QProperties;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +23,15 @@ class QData extends Model
     ];
 
     protected $casts = [
-        "properties" => "array",
+        "properties" => QProperties::class,
     ];
+
+    // mutators
+
+
+    // relationships
+    public function ObjectType()
+    {
+        return $this->belongsTo(QObject::class, 'object_id', "id");
+    }
 }
