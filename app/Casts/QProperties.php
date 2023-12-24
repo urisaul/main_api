@@ -2,6 +2,7 @@
 
 namespace App\Casts;
 
+use App\Http\Controllers\FilesController;
 use App\Models\QData;
 use App\Models\QObject;
 use App\Models\QProperty;
@@ -41,6 +42,9 @@ class QProperties implements CastsAttributes
         foreach ($props as $prop) {
             if ($value[$prop->internal_name] ?? false) {
                 // check type of property
+                if ($prop->type === 'file') {
+                    FilesController::uploadFileFromArr($value, $prop->internal_name);
+                }
 
                 $data[$prop->internal_name] = $value[$prop->internal_name];
             }
