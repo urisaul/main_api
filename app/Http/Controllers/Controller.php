@@ -56,7 +56,7 @@ class Controller extends BaseController
     public function delete(Request $request, $client, $model)
     {
         $request->validate([
-            "id" => "required",
+            "ids" => "required",
         ]);
 
         $success = $this->models[$model]::whereIn("id", $request->input('ids', [0]))->delete();
