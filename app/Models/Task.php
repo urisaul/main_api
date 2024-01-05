@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class Task extends Model
 {
@@ -74,6 +75,12 @@ class Task extends Model
     public function move_to_faild_tasks () {
         Log::error("Task Faild", $this->getAttributes());
         DB::table("tasks_faild")->insert($this->getAttributes());
+        Mail::mailer('smtp_2')
+            ->send([], [], function ($message) {
+                $message->to("urisaul36@gmail.com")
+                  ->subject("Task Failed")
+                  ->setBody('This task failed ' . ($this->task_name ?? "unknown") . ' and was moved to the failed tasks table.');
+              });
         return $this->delete();
     }
 }
