@@ -20,9 +20,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         $schedule->call(function(){
-            Log::info("Testing the schedule");
             return TaskController::run_tasks();
-        })->everyMinute();
+        })->everyMinute()->withoutOverlapping(10);
 
         $schedule->command('sanctum:prune-expired --hours=24')->daily()->withoutOverlapping(10);
     }

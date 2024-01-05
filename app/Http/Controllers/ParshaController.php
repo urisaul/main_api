@@ -113,6 +113,10 @@ class ParshaController extends Controller
         if (!$filename) {
             throw new Exception("Could not find parsha file", 1);  
         }
+        Log::info("Parsha file", [
+            "req" => $parsha,
+            "res" => storage_path('app/public/parsha_files/' . $filename),
+        ]);
         return storage_path('app/public/parsha_files/' . $filename);
     }
 }
