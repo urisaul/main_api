@@ -49,8 +49,8 @@ class ParshaController extends Controller
         $email = new ParshaQuset($parsha, $template, $data_for_template);
 
         Mail::mailer('smtp_2')
-            ->to("urisaul36@gmail.com")
-            // ->bcc($users)
+            // ->to("urisaul36@gmail.com")
+            ->bcc($users)
             ->send($email);
 
         return [
