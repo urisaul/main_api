@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function(){
             return TaskController::run_tasks();
-        })->everyMinute()->withoutOverlapping(10);
+        })->everyMinute();
 
         $schedule->command('sanctum:prune-expired --hours=24')->daily()->withoutOverlapping(10);
     }
