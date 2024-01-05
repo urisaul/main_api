@@ -36,29 +36,27 @@ class ParshaController extends Controller
         ], $success ? 200 : 400);
     }
 
-    public static function send_email($parsha, $template_id)
+    public static function send_email($data)
     {
         $users = ParshaUser::where("status", "sub")->get();
 
         Log::info("sending parsha email to users", ["users" => $users->pluck("email")->toArray() ?? ""]);
 
-        $template = null;
-        if (!$template_id || intval($template_id) === 1) {
-            $template = new ParshaQuset($parsha);
-        } else if (intval($template_id) === 2) {
-            # template with anoncemant of Chabura
-        } else if (intval($template_id) === 3) {
-            # template with live link to Chabura
-        }
+        $parsha = $data["parsha"] ?? 1;
+        $template = intval($data["template"] ?? 1);
+        $data_for_template = $data["data_for_template"] ?? [];
+
+        $email = new ParshaQuset($parsha, $template, $data_for_template);
 
         Mail::mailer('smtp_2')
-            // ->to("urisaul36@gmail.com")
-            ->bcc($users)
-            ->send($template);
+            ->to("urisaul36@gmail.com")
+            // ->bcc($users)
+            ->send($email);
 
         return [
             "success" => true,
-            "message" => "emails were sent successfuly!!"
+            "message" => "emails were sent successfuly!!",
+            "count"   => $users->count(),
         ];
     }
 
