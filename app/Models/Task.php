@@ -79,7 +79,7 @@ class Task extends Model
             ->send([], [], function ($message) {
                 $message->to("urisaul36@gmail.com")
                   ->subject("Task Failed")
-                  ->setBody('This task failed ' . ($this->task_name ?? "unknown") . ' and was moved to the failed tasks table.');
+                  ->setBody('<div>This task failed <br /> <b>' . ($this->task_name ?? "unknown") . '</b> <br /> and was moved to the failed tasks table.</div>', 'text/html');
               });
         return $this->delete();
     }
