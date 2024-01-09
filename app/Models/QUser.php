@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class QUser extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $connection = 'mysql2';
 
@@ -18,6 +20,7 @@ class QUser extends Model
         "client_id",
         "email",
         "email_confirmed",
+        "password",
         "firstname",
         "lastname",
     ];

@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScrapeController;
-use App\Http\Controllers\TravelController;
-use App\Mail\GeneralEmail;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 
 
@@ -29,10 +26,11 @@ use Illuminate\Support\Facades\Password;
 
 
 Route::post('/login', [UserController::class, "login"]);
+Route::post('/q_login', [UserController::class, "q_login"]);
 Route::post('/user/create', [UserController::class, "create"]);
 
 Route::post("/parsha/email_pref", [ParshaController::class, "email_pref"]);
-Route::post("/parsha/send_email/{parsha}/{template_id}", [ParshaController::class, "send_email"]);
+// Route::post("/parsha/send_email/{parsha}/{template_id}", [ParshaController::class, "send_email"]);
 Route::post("/parsha/send_email_req", [ParshaController::class, "send_email_req"]);
 Route::post("/parsha/schedule_send", [ParshaController::class, "schedule_send_req"]);
 
@@ -64,30 +62,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::delete('/comments/delete', [CommentController::class, "Delete"]);
 
 
-    // Travel App
-    // Route::get('trvl/{model}/get', [TravelController::class, "get"]);
-    // Route::get('trvl/{model}/get/{id}', [TravelController::class, "get_one"]);
-    // Route::post('trvl/{model}/add', [TravelController::class, "create"]);
-    // Route::patch('trvl/{model}/update', [TravelController::class, "update"]);
-    // Route::delete('trvl/{model}/delete', [TravelController::class, "delete"]);
- 
- 
-    //  add middlewares #1. Auth, #2. Validate Client_id
-
-    Route::get('a_v1/{client}/ad-{model}/get', [GenManagerController::class, "get_object"]);
-    Route::get('a_v1/{client}/ad-{model}/get/{id}', [GenManagerController::class, "get_one_object"]);
-    Route::post('a_v1/{client}/ad-{model}/add', [GenManagerController::class, "create_ad"]);
-    Route::patch('a_v1/{client}/ad-{model}/update', [GenManagerController::class, "update_object"]);
-    Route::delete('a_v1/{client}/ad-{model}/delete', [GenManagerController::class, "delete_object"]);
-
-    Route::get('a_v1/{client}/{object_id}/get', [GenManagerController::class, "get_"]);
-    Route::get('a_v1/{client}/{object_id}/get/{id}', [GenManagerController::class, "get_one_"]);
-    Route::post('a_v1/{client}/{object_id}/add', [GenManagerController::class, "create_"]);
-    Route::patch('a_v1/{client}/{object_id}/update', [GenManagerController::class, "update"]);
-    Route::delete('a_v1/{client}/{object_id}/delete', [GenManagerController::class, "delete"]);
-
-    
-   
     // test routes
     Route::get('/testing', function (Request $request) {
         $data = [
@@ -103,19 +77,23 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 });
 
+Route::middleware(['auth:sanctum', 'verified', 'client'])->group(function () {
 
- // Pros&Cons routes
- Route::get('/pros_n_cons', [ProsNConsController::class, "GetAll"]);
- Route::get('/pros_n_cons/{id}', [ProsNConsController::class, "GetOne"]);
- Route::post('/pros_n_cons/add', [ProsNConsController::class, "Add"]);
- Route::patch('/pros_n_cons/update', [ProsNConsController::class, "Update"]);
- Route::delete('/pros_n_cons/delete', [ProsNConsController::class, "Delete"]);
+    Route::middleware(['ability:admin,*'])->group(function () {
+        Route::get('a_v1/{client}/ad-{model}/get', [GenManagerController::class, "get_object"]);
+        Route::get('a_v1/{client}/ad-{model}/get/{id}', [GenManagerController::class, "get_one_object"]);
+        Route::post('a_v1/{client}/ad-{model}/add', [GenManagerController::class, "create_ad"]);
+        Route::patch('a_v1/{client}/ad-{model}/update', [GenManagerController::class, "update_object"]);
+        Route::delete('a_v1/{client}/ad-{model}/delete', [GenManagerController::class, "delete_object"]);
+    });
 
-
-
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+    Route::get('a_v1/{client}/{object_id}/get', [GenManagerController::class, "get_"]);
+    Route::get('a_v1/{client}/{object_id}/get/{id}', [GenManagerController::class, "get_one_"]);
+    Route::post('a_v1/{client}/{object_id}/add', [GenManagerController::class, "create_"])->middleware('ability:create');
+    Route::patch('a_v1/{client}/{object_id}/update', [GenManagerController::class, "update"])->middleware('ability:update');
+    Route::delete('a_v1/{client}/{object_id}/delete', [GenManagerController::class, "delete"])->middleware('ability:delete');
 });
+
 
 
 // reset password routes
