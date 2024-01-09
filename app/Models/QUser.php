@@ -24,4 +24,12 @@ class QUser extends Model
         "firstname",
         "lastname",
     ];
+
+    /**
+     * mutator to ensure hashed passwords
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }
