@@ -39,16 +39,17 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:App\Models\User,email',
+            'client_id' => 'required|integer|exists:App\Models\QClient,id',
             'password' => [
                 'required',
                 'min:6',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
+                // 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
                 'confirmed'
             ]
         ]);
 
         $user = QUser::create($request->all());
-        $user->sendEmailVerificationNotification();
+        // $user->sendEmailVerificationNotification();
 
         return $user;
     }
