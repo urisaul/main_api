@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Password;
 Route::post('/login', [UserController::class, "login"]);
 Route::post('/q_login', [UserController::class, "q_login"]);
 Route::post('/user/create', [UserController::class, "create"]);
+Route::post('/user/q_create', [UserController::class, "q_create"]);
 
 Route::post("/parsha/email_pref", [ParshaController::class, "email_pref"]);
 // Route::post("/parsha/send_email/{parsha}/{template_id}", [ParshaController::class, "send_email"]);
