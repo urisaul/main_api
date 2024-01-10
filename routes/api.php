@@ -80,6 +80,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 Route::middleware(['auth:sanctum', 'verified', 'client'])->group(function () {
 
+    Route::get('a_v1/{client}/{object_id}/get', [GenManagerController::class, "get_"]);
+    Route::get('a_v1/{client}/{object_id}/get/{id}', [GenManagerController::class, "get_one_"]);
+    Route::post('a_v1/{client}/{object_id}/add', [GenManagerController::class, "create_"])->middleware('ability:create');
+    Route::patch('a_v1/{client}/{object_id}/update', [GenManagerController::class, "update"])->middleware('ability:update');
+    Route::delete('a_v1/{client}/{object_id}/delete', [GenManagerController::class, "delete"])->middleware('ability:delete');
+
     Route::middleware(['ability:admin,*'])->group(function () {
         Route::get('a_v1/{client}/ad-{model}/get', [GenManagerController::class, "get_object"]);
         Route::get('a_v1/{client}/ad-{model}/get/{id}', [GenManagerController::class, "get_one_object"]);
@@ -87,12 +93,6 @@ Route::middleware(['auth:sanctum', 'verified', 'client'])->group(function () {
         Route::patch('a_v1/{client}/ad-{model}/update', [GenManagerController::class, "update_object"]);
         Route::delete('a_v1/{client}/ad-{model}/delete', [GenManagerController::class, "delete_object"]);
     });
-
-    Route::get('a_v1/{client}/{object_id}/get', [GenManagerController::class, "get_"]);
-    Route::get('a_v1/{client}/{object_id}/get/{id}', [GenManagerController::class, "get_one_"]);
-    Route::post('a_v1/{client}/{object_id}/add', [GenManagerController::class, "create_"])->middleware('ability:create');
-    Route::patch('a_v1/{client}/{object_id}/update', [GenManagerController::class, "update"])->middleware('ability:update');
-    Route::delete('a_v1/{client}/{object_id}/delete', [GenManagerController::class, "delete"])->middleware('ability:delete');
 });
 
 
