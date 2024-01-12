@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:App\Models\User,email',
+            'email' => 'required|email|unique:App\Models\QUser,email',
             'client_id' => 'required|integer|exists:App\Models\QClient,id',
             'password' => [
                 'required',
