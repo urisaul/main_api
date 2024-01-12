@@ -125,7 +125,7 @@ class UserController extends Controller
             ]);
         }
 
-        // $user->tokens()->delete();
+        $user->tokens()->delete();
         $token = $user->createToken($request->device_name, ['create', 'update', 'delete']);
 
         return [
