@@ -78,7 +78,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 });
 
-Route::middleware([/*'auth:sanctum', 'verified',*/ 'client'])->group(function () {
+Route::middleware(['auth:sanctum', /*'verified',*/ 'client'])->group(function () {
 
     Route::get('a_v1/{client}/{object_id}/get', [GenManagerController::class, "get_"]);
     Route::get('a_v1/{client}/{object_id}/get/{id}', [GenManagerController::class, "get_one_"]);
