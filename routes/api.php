@@ -78,9 +78,9 @@ Route::post("/parsha/schedule_send", [ParshaController::class, "schedule_send_re
 //     });
 // });
 
-Route::get('a_v1/{client}/{object_id}/get', [GenManagerController::class, "get_"]);
 Route::middleware(['auth:sanctum', 'verified', 'client'])->group(function () {
-
+    
+    Route::get('a_v1/{client}/{object_id}/get', [GenManagerController::class, "get_"]);
     Route::get('a_v1/{client}/{object_id}/get/{id}', [GenManagerController::class, "get_one_"]);
     Route::post('a_v1/{client}/{object_id}/add', [GenManagerController::class, "create_"])->middleware('ability:create');
     Route::patch('a_v1/{client}/{object_id}/update', [GenManagerController::class, "update"])->middleware('ability:update');
