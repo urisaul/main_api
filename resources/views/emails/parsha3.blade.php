@@ -15,8 +15,8 @@
         </p>
         <br><br>
         <p dir="rtl">
-            <a href="{{ url('') }}/parsha/email_pref?action=unsub&user_e=">להסרה</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="{{ url('') }}/parsha/email_pref?action=sub">להצטרפות</a>
+            <a href="{{ url('') }}/u_api/parsha/email_pref?action=unsub&user_e=">להסרה</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="{{ url('') }}/u_api/parsha/email_pref?action=sub">להצטרפות</a>
         </p>
         <p dir="rtl">
             תודה מיוחדת למסייעים בהכנת העלון,
