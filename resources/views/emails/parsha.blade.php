@@ -1,5 +1,8 @@
 <div dir="rtl">
-    <div  dir="rtl">
+    <div dir="rtl">
+        <p dir="rtl" style="font-size: 18px;">
+            {{ $extra_message ?? "" }}
+        </p>
         <h2 dir="rtl">שבת שלום ומבורך לכולם!</h2>
         <br>
         <p dir="rtl">

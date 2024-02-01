@@ -1,9 +1,12 @@
 <div dir="rtl">
     <div dir="rtl">
+        <p dir="rtl" style="font-size: 18px;">
+            {{ $extra_message ?? "" }}
+        </p>
         <h1 dir="rtl">הודעה משמחת,</h1>
         <p dir="rtl" style="font-size: 20px;">
             בעז"ה תתקיים חבורא מפי הרב {{$speaker}} שליט"א בתאריך אור ל{{$heb_date}} ({{$date}}) בשעה 21:15 בערב
-                (<a href="{{ $g_cal_link }}">קישור ליומן</a>)
+            (<a href="{{ $g_cal_link }}">קישור ליומן</a>)
             , כל הציבור מוזמן להשתתף.
         </p>
         <p dir="rtl">

@@ -7,6 +7,9 @@
         <h1 dir="rtl">החבורא מתחילה ב 21:15</h1>
         <span>נא להצטרף בזמן!</span>
         <br>
+        <p dir="rtl" style="font-size: 18px;">
+            {{ $extra_message ?? "" }}
+        </p>
         <h2 dir="rtl">שבת שלום ומבורך לכולם!</h2>
         <br>
         <p dir="rtl">
