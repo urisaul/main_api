@@ -26,7 +26,7 @@ class OfierArchitectsController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:20',
-            'message' => 'required|string|max:1000',
+            'message' => 'nullable|string|max:1000',
         ]);
 
         $sub = new \App\Models\OfierArchitectsContactSub();
@@ -46,7 +46,8 @@ class OfierArchitectsController extends Controller
                 "Phone: {$request->input('phone')}\n" .
                 "Message: {$request->input('message')}",
         ];
-        Mail::mailer('smtp_2')->to('urisaul36@gmail.com')->send(new \App\Mail\GeneralEmail($data));
+
+        Mail::mailer('smtp_2')->to(env('OFIER_ARCHITECTS_CONTACT_EMAIL'))->send(new \App\Mail\GeneralEmail($data));
         return response()->json(['message' => 'Contact form submitted successfully']);
     }
 }
