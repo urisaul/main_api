@@ -47,7 +47,7 @@ class OfierArchitectsController extends Controller
                 "Message: {$request->input('message')}",
         ];
 
-        Mail::mailer('smtp_2')->to(env('OFIER_ARCHITECTS_CONTACT_EMAIL'))->send(new \App\Mail\GeneralEmail($data));
+        Mail::mailer('smtp_2')->to("yco.arc@gmail.com")->send(new \App\Mail\GeneralEmail($data));
         return response()->json(['message' => 'Contact form submitted successfully']);
     }
 }
