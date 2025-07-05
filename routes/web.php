@@ -23,4 +23,4 @@ Route::get('/parsha/email_pref',  function (Request $req) {
     return view('pages.email_pref', Utils::obj_to_arr($req));
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

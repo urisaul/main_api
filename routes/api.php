@@ -1,14 +1,11 @@
 <?php
 
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GenManagerController;
+use App\Http\Controllers\OfierArchitectsController;
 use App\Http\Controllers\ParshaController;
-use App\Http\Controllers\ProsNConsController;
-use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ScrapeController;
 use Illuminate\Support\Facades\Password;
 
 
@@ -79,7 +76,7 @@ Route::post("/parsha/schedule_send", [ParshaController::class, "schedule_send_re
 // });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    
+
     Route::get('a_v1/{client}/{object_id}/get', [GenManagerController::class, "get_"]);
     Route::get('a_v1/{client}/{object_id}/get/{id}', [GenManagerController::class, "get_one_"]);
     Route::post('a_v1/{client}/{object_id}/add', [GenManagerController::class, "create_"])->middleware('ability:create');
@@ -96,6 +93,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 });
 
 
+// ofierarchitects.com routes
+
+Route::get('/ofierarchitects/projects', [OfierArchitectsController::class, "projects"]);
+Route::post('/ofierarchitects/contact-form', [OfierArchitectsController::class, "contactForm"]);
 
 // reset password routes
 
